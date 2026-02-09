@@ -16,7 +16,7 @@ public class Main {
                 for (int i = 0; i < 20; i++) {
                     final int taskId = i;
                     Runnable task = () -> {
-                        System.out.printf("Task is in progress %s in thread %s\n", taskId, Thread.currentThread().getId());
+                        System.out.printf("Task %s is in progress in thread %s\n", taskId, Thread.currentThread().getId());
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
@@ -39,6 +39,7 @@ public class Main {
                     Runnable task = taskQueue.dequeue();
                     System.out.printf("Task is polled. Queue size is %s\n", taskQueue.size());
                     executorService.execute(task);
+                    Thread.sleep(2000);
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -48,10 +49,8 @@ public class Main {
         producer.start();
         consumer.start();
 
-        Thread.sleep(5000);
-
-        producer.interrupt();
-        consumer.interrupt();
+        producer.join();
+        consumer.join();
 
         executorService.shutdown();
         executorService.awaitTermination(10, TimeUnit.SECONDS);
