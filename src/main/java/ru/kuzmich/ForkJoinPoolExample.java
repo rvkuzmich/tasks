@@ -10,8 +10,11 @@ public class ForkJoinPoolExample {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         FactorialTask factorialTask = new FactorialTask(n);
 
+        long startTime = System.currentTimeMillis();
         BigInteger result = forkJoinPool.invoke(factorialTask);
+        long endTime = System.currentTimeMillis();
 
         System.out.println("Факториал " + n + "! = " + result);
+        System.out.println("Время выполнения: " + (endTime - startTime) + " мс");
     }
 }
