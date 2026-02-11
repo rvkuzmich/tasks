@@ -13,7 +13,7 @@ public class FactorialTask extends RecursiveTask<BigInteger> {
         this(1, n);
     }
 
-    public FactorialTask(int start, int end) {
+    private FactorialTask(int start, int end) {
         this.start = start;
         this.end = end;
     }
